@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>狹義相對論入門｜教學簡報</title>
+<style>
+:root{--bg:#f6f3ec;--card:#fffdf8;--ink:#1f2328;--muted:#5d6670;--accent:#b4462b;--accent2:#1f5f8b;--line:#e2dccf;--hl:#fff1c9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--card:#1d2024;--ink:#e8e6e1;--muted:#a3abb4;--accent:#ff8a65;--accent2:#7cc4f2;--line:#33383e;--hl:#3a3320}}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif}
+.deck{height:100%;display:flex;align-items:center;justify-content:center;padding:16px}
+.slide{display:none;width:min(1100px,100%);aspect-ratio:16/9;max-height:calc(100vh - 70px);background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:clamp(18px,3.2vw,44px) clamp(20px,4vw,56px) 64px;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.06);flex-direction:column;gap:.6em}
+.slide.on{display:flex}
+.slide h1{font-size:clamp(28px,4.4vw,52px);margin:.1em 0;line-height:1.2}
+.slide h2{font-size:clamp(22px,3vw,36px);margin:0 0 .2em;color:var(--accent);line-height:1.25}
+.slide p,.slide li{font-size:clamp(16px,1.9vw,23px);line-height:1.6;margin:.2em 0}
+.slide ul{margin:.2em 0;padding-left:1.2em}
+.kicker{color:var(--muted);font-size:clamp(14px,1.5vw,18px);letter-spacing:.05em}
+.formula{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:clamp(22px,3vw,36px);background:var(--hl);padding:.25em .7em;border-radius:8px;align-self:flex-start}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,32px);align-items:center;flex:1;min-height:0}
+.box{border:1px solid var(--line);border-radius:10px;padding:.6em .9em}
+.big{font-size:clamp(30px,5vw,60px);font-weight:700;color:var(--accent2);line-height:1.1}
+table{border-collapse:collapse;font-size:clamp(15px,1.8vw,21px)}
+td,th{border-bottom:1px solid var(--line);padding:.3em .8em;text-align:left}
+svg{max-width:100%;height:auto}
+svg text{fill:var(--ink);font-family:inherit}
+details{font-size:clamp(15px,1.8vw,21px)}
+summary{cursor:pointer;color:var(--accent2)}
+.src{position:absolute;left:clamp(20px,4vw,56px);right:110px;bottom:14px;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.src a{color:var(--muted)}
+.nav{position:fixed;bottom:10px;right:16px;display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.nav button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:16px;cursor:pointer}
+@media (max-width:760px){
+  .slide{aspect-ratio:auto;max-height:none;min-height:calc(100vh - 80px)}
+  .two{grid-template-columns:1fr}
+  .src{position:static;white-space:normal;margin-top:auto}
+  .formula{font-size:20px;max-width:100%;white-space:normal}
+  table{font-size:14px}
+  td,th{padding:.25em .3em}
+}
+</style>
+</head>
+<body>
+<main class="deck">
+<!--SLIDES-->
+</main>
+<div class="nav"><button id="prev" aria-label="上一頁">‹</button><span id="pg"></span><button id="next" aria-label="下一頁">›</button></div>
+<script>
+(function(){
+  var s=[].slice.call(document.querySelectorAll('.slide')),i=0;
+  function show(n){i=Math.max(0,Math.min(s.length-1,n));s.forEach(function(e,k){e.classList.toggle('on',k===i)});
+    document.getElementById('pg').textContent=(i+1)+' / '+s.length;history.replaceState(null,'','#'+(i+1));}
+  document.getElementById('prev').onclick=function(){show(i-1)};
+  document.getElementById('next').onclick=function(){show(i+1)};
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();show(i+1)}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>=0){e.preventDefault();show(i-1)}
+    if(e.key==='Home')show(0); if(e.key==='End')show(s.length-1);});
+  var x0=null;document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>50)show(i+(d<0?1:-1));x0=null});
+  show((parseInt(location.hash.slice(1),10)||1)-1);
+})();
+</script>
+</body>
+</html>

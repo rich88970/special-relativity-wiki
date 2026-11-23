@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>狹義相對論入門｜教學簡報</title>
+<style>
+:root{--bg:#f6f3ec;--card:#fffdf8;--ink:#1f2328;--muted:#5d6670;--accent:#b4462b;--accent2:#1f5f8b;--line:#e2dccf;--hl:#fff1c9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--card:#1d2024;--ink:#e8e6e1;--muted:#a3abb4;--accent:#ff8a65;--accent2:#7cc4f2;--line:#33383e;--hl:#3a3320}}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif}
+.deck{height:100%;display:flex;align-items:center;justify-content:center;padding:16px}
+.slide{display:none;width:min(1100px,100%);aspect-ratio:16/9;max-height:calc(100vh - 70px);background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:clamp(18px,3.2vw,44px) clamp(20px,4vw,56px) 64px;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.06);flex-direction:column;gap:.6em}
+.slide.on{display:flex}
+.slide h1{font-size:clamp(28px,4.4vw,52px);margin:.1em 0;line-height:1.2}
+.slide h2{font-size:clamp(22px,3vw,36px);margin:0 0 .2em;color:var(--accent);line-height:1.25}
+.slide p,.slide li{font-size:clamp(16px,1.9vw,23px);line-height:1.6;margin:.2em 0}
+.slide ul{margin:.2em 0;padding-left:1.2em}
+.kicker{color:var(--muted);font-size:clamp(14px,1.5vw,18px);letter-spacing:.05em}
+.formula{font-family:"Cambria Math","STIX Two Math","Times New Roman",serif;font-size:clamp(22px,3vw,36px);background:var(--hl);padding:.25em .7em;border-radius:8px;align-self:flex-start}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,32px);align-items:center;flex:1;min-height:0}
+.box{border:1px solid var(--line);border-radius:10px;padding:.6em .9em}
+.big{font-size:clamp(30px,5vw,60px);font-weight:700;color:var(--accent2);line-height:1.1}
+table{border-collapse:collapse;font-size:clamp(15px,1.8vw,21px)}
+td,th{border-bottom:1px solid var(--line);padding:.3em .8em;text-align:left}
+svg{max-width:100%;height:auto}
+svg text{fill:var(--ink);font-family:inherit}
+details{font-size:clamp(15px,1.8vw,21px)}
+summary{cursor:pointer;color:var(--accent2)}
+.src{position:absolute;left:clamp(20px,4vw,56px);right:110px;bottom:14px;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.src a{color:var(--muted)}
+.nav{position:fixed;bottom:10px;right:16px;display:flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.nav button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:16px;cursor:pointer}
+@media (max-width:760px){
+  .slide{aspect-ratio:auto;max-height:none;min-height:calc(100vh - 80px)}
+  .two{grid-template-columns:1fr}
+  .src{position:static;white-space:normal;margin-top:auto}
+  .formula{font-size:20px;max-width:100%;white-space:normal}
+  table{font-size:14px}
+  td,th{padding:.25em .3em}
+}
+</style>
+</head>
+<body>
+<main class="deck">
+<section class="slide" data-wiki="index.md">
+  <p class="kicker">給高中生／非物理系的入門簡報</p>
+  <h1>狹義相對論入門</h1>
+  <p>為什麼時間和長度會因人而異？</p>
+  <p class="kicker">內容只取自本專案的 LLM Wiki（10 篇來源、10 個概念頁）</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/index.md">index.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/gps.md">
+  <h2>你的手機每天都在用相對論</h2>
+  <p>GPS 靠「訊號從衛星飛到手機花了多久」來算距離，所以衛星上的時鐘必須非常準。</p>
+  <p class="big">不修正 → 每天偏 11.4 公里</p>
+  <p>為什麼衛星的鐘會「不準」？看完這份簡報就知道。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/gps.md">concepts/gps.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/reference-frames.md">
+  <h2>先說好：運動是相對的</h2>
+  <ul>
+    <li>說一個東西「在動」，一定是<strong>相對於</strong>某個東西：乘客相對飛機、飛機相對地球。</li>
+    <li><strong>慣性座標系</strong>：不受力的東西會保持靜止或等速直線運動的觀察角度，例如平穩等速行駛的車廂。</li>
+    <li>關起門來的等速車廂裡，沒有任何實驗能判斷「是我在動還是外面在動」。</li>
+  </ul>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/reference-frames.md">concepts/reference-frames.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/reference-frames.md concepts/speed-of-light.md">
+  <h2>愛因斯坦的兩個假設（1905）</h2>
+  <div class="two">
+    <div class="box"><p><strong>① 相對性原理</strong></p><p>物理定律在所有慣性座標系都一樣。宇宙沒有「絕對靜止」。</p></div>
+    <div class="box"><p><strong>② 光速不變</strong></p><p>真空中的光速對所有慣性座標系都一樣，約每秒 30 萬公里（c ≈ 3 × 10⁸ m/s）。</p></div>
+  </div>
+  <p>後面所有奇怪的結果，都是從這兩句話推出來的。「狹義」相對論只處理慣性座標系；把加速度和重力也算進來的是廣義相對論（1916）。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/reference-frames.md">reference-frames.md</a>、<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/speed-of-light.md">speed-of-light.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/speed-of-light.md">
+  <h2>光速不變有多奇怪？</h2>
+  <p>太空船以每秒 2 × 10⁸ 公尺追著探照燈的光飛。</p>
+  <div class="two">
+    <div class="box"><p>「常識」：船上量到的光速應該是 (3 − 2) × 10⁸ = 1 × 10⁸ m/s</p></div>
+    <div class="box"><p>實際：船上量到的還是 <strong>3 × 10⁸ m/s</strong></p></div>
+  </div>
+  <p>速度 = 距離 ÷ 時間。兩人量到同一個光速，代表他們量到的<strong>距離和時間本身不一樣</strong>。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/speed-of-light.md">concepts/speed-of-light.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/simultaneity.md">
+  <h2>推論一：「同時」不是絕對的</h2>
+  <div class="two">
+    <svg viewBox="0 0 400 190" role="img" aria-label="火車車廂中央發出閃光，光往車頭和車尾跑">
+      <rect x="60" y="70" width="280" height="70" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="200" cy="105" r="10" fill="#f2b33d"/>
+      <line x1="185" y1="105" x2="80" y2="105" stroke="#f2b33d" stroke-width="3" marker-end="url(#ah)"/>
+      <line x1="215" y1="105" x2="320" y2="105" stroke="#f2b33d" stroke-width="3" marker-end="url(#ah)"/>
+      <line x1="150" y1="170" x2="250" y2="170" stroke="currentColor" stroke-width="2" marker-end="url(#ah2)"/>
+      <text x="255" y="176" font-size="16">火車前進</text>
+      <text x="62" y="60" font-size="16">車尾</text><text x="305" y="60" font-size="16">車頭</text>
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f2b33d"/></marker>
+      <marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+    </svg>
+    <div>
+      <p>車廂正中央亮起閃光。</p>
+      <p><strong>車上的人</strong>：光同時到車頭和車尾。</p>
+      <p><strong>月臺上的人</strong>：光速不會因為火車在動而改變；車尾迎向光、車頭遠離光，光先到車尾。</p>
+      <p>兩人都沒錯：不同地點的「同時」因觀察者而異。</p>
+    </div>
+  </div>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/simultaneity.md">concepts/simultaneity.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/time-dilation.md">
+  <h2>推論二：運動的鐘走得比較慢</h2>
+  <div class="two">
+    <svg viewBox="0 0 420 210" role="img" aria-label="左邊靜止光鐘光走直線，右邊運動光鐘光走斜線">
+      <g stroke="currentColor" stroke-width="3"><line x1="40" y1="30" x2="110" y2="30"/><line x1="40" y1="180" x2="110" y2="180"/></g>
+      <line x1="75" y1="178" x2="75" y2="34" stroke="#f2b33d" stroke-width="3"/>
+      <text x="35" y="205" font-size="15">靜止的光鐘</text>
+      <g stroke="currentColor" stroke-width="3"><line x1="170" y1="180" x2="240" y2="180"/><line x1="240" y1="30" x2="310" y2="30"/><line x1="310" y1="180" x2="380" y2="180"/></g>
+      <polyline points="205,178 275,34 345,178" fill="none" stroke="#f2b33d" stroke-width="3"/>
+      <text x="215" y="205" font-size="15">運動中的光鐘（光走斜線）</text>
+    </svg>
+    <div>
+      <p><strong>光鐘</strong>：兩面鏡子，光來回反彈一次算「滴答」一聲。</p>
+      <p>光鐘在動時，地面上的人看到光走<strong>斜線</strong>，路比較長。</p>
+      <p>光速又不能變，只好是<strong>每一聲滴答花的時間變長</strong>。</p>
+    </div>
+  </div>
+  <p>所有的鐘都一樣：原子鐘、心跳、老化都會變慢。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/time-dilation.md">concepts/time-dilation.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/time-dilation.md">
+  <h2>慢多少？看 γ（勞侖茲因子）</h2>
+  <p class="formula">t = γ · t₀　　γ = 1 / √(1 − v²/c²)</p>
+  <p><strong>t₀（固有時間）</strong>：跟著鐘一起動的人量到的時間；<strong>t</strong>：看著鐘在動的人量到的時間。</p>
+  <table><tr><th>速度 v</th><td>0.1c</td><td>0.5c</td><td>0.8c</td><td>0.9c</td><td>0.99c</td></tr>
+    <tr><th>γ</th><td>1.005</td><td>1.155</td><td>1.667</td><td>2.294</td><td>7.09</td></tr></table>
+  <p>速度越接近光速，γ 越大，鐘慢得越多。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/time-dilation.md">concepts/time-dilation.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/time-dilation.md">
+  <h2>彼此都覺得對方的鐘比較慢</h2>
+  <p>你在月臺、朋友在高速火車上：你量到朋友的鐘變慢；朋友認為是你在動，也量到<strong>你的</strong>鐘變慢。</p>
+  <p>這不矛盾：兩個人比較的不是同一對事件。</p>
+  <p>要讓兩個鐘回到同一個地方對照，一定有一方要掉頭、換座標系，對稱就被打破了——後面的雙生子弔詭就是這種情況。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/time-dilation.md">concepts/time-dilation.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/time-dilation.md">
+  <h2>為什麼平常感覺不到？</h2>
+  <ul>
+    <li>日常速度遠小於光速，γ 幾乎就是 1。</li>
+    <li>國際太空站以每秒約 7,700 公尺繞地球，待 6 個月的太空人只比地面的人少老約 <strong>5 毫秒</strong>。</li>
+    <li>要快到光速的十分之一（每秒 30,000 公里），時間差才大約 0.5%。</li>
+  </ul>
+  <p>所以要找證據，得看跑得非常快的東西 → 緲子。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/time-dilation.md">concepts/time-dilation.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/muon-evidence.md">
+  <h2>證據：緲子為什麼飛得到地面？</h2>
+  <p><strong>緲子</strong>：宇宙射線（來自外太空的高能粒子）在 6 公里以上高空撞出的粒子，壽命只有 2.2 微秒，速度約 0.998c。沒有相對論的話，最多飛 0.66 公里就衰變。</p>
+  <p>但地面上每分鐘、每平方公分就有一個緲子穿過！</p>
+  <div class="two">
+    <div class="box"><p><strong>地面看</strong>：緲子的鐘慢了約 15.8 倍，壽命變 34.8 微秒，能飛 10.4 公里。</p></div>
+    <div class="box"><p><strong>緲子看</strong>：壽命正常，但地面上 10.4 公里的路程，在它看來只剩 0.66 公里。</p></div>
+  </div>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/muon-evidence.md">concepts/muon-evidence.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/length-contraction.md">
+  <h2>推論三：運動的物體沿運動方向變短</h2>
+  <p class="formula">L = L₀ / γ</p>
+  <ul>
+    <li><strong>L₀（固有長度）</strong>：在物體靜止時量到的長度，是最長的。</li>
+    <li>只縮<strong>運動方向</strong>：太空船變短，但不會變窄。</li>
+    <li>每秒 1000 公里時只縮成 99.9994%；到 0.9c 才縮成 44%。</li>
+    <li>拍照拍不到變扁的物體：照片是另一種量法。</li>
+  </ul>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/length-contraction.md">concepts/length-contraction.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/twin-paradox.md">
+  <h2>雙生子弔詭：誰比較年輕？</h2>
+  <p>既然彼此都覺得對方的鐘慢，重逢時誰比較年輕？Dick 20 歲時以 0.80c 飛到 20 光年（光一年走的距離，約 9.46 兆公里）外再回來，Jane 留在地球。</p>
+  <div class="two">
+    <div class="box"><p><strong>Jane 算</strong>：來回 40 光年要 50 年；Dick 的時間只走 0.60 倍，過 30 年。</p></div>
+    <div class="box"><p><strong>Dick 算</strong>：距離縮成 12 光年，來回 30 年。</p></div>
+  </div>
+  <p>Dick 回來 50 歲，Jane 70 歲。只有 Dick 掉頭、換過座標系，所以不對稱。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/twin-paradox.md">concepts/twin-paradox.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/mass-energy.md">
+  <h2>推論四：E = mc²</h2>
+  <p class="formula">E₀ = m c²</p>
+  <ul>
+    <li>有質量的東西就算不動，也帶著一份能量（<strong>靜能</strong>）。</li>
+    <li>c² 非常大：1 公斤質量的能量約 9 × 10¹⁶ 焦耳，約等於 250 億度電。</li>
+    <li>鈾分裂時，原子的質量只少了約 0.1%，就放出巨大的能量。</li>
+    <li>化學反應也有質量變化，只是小到量不出來。</li>
+  </ul>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/mass-energy.md">concepts/mass-energy.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/gps.md">
+  <h2>回到 GPS：衛星的鐘每天差多少？</h2>
+  <table>
+    <tr><th>狹義相對論（衛星跑得快）</th><td>每天慢約 7.2 微秒</td></tr>
+    <tr><th>廣義相對論（衛星離地球遠、重力較弱，鐘走得快）</th><td>每天快約 45.8 微秒</td></tr>
+    <tr><th>合計</th><td>每天快約 38.6 微秒</td></tr>
+  </table>
+  <p>不修正，定位每天偏 11.4 公里。工程師在發射前把衛星時鐘從 10.23 MHz 調成 10.22999999543 MHz，抵銷這兩個效應。</p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/gps.md">concepts/gps.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/misconceptions.md">
+  <h2>常見誤解</h2>
+  <ul>
+    <li>✗ 只有光鐘會變慢 → ✓ 所有的鐘、心跳、老化都一樣</li>
+    <li>✗ 彼此都覺得對方慢，一定有人錯 → ✓ 兩人比的不是同一對事件，都沒錯</li>
+    <li>✗ 一直加速就能超過光速 → ✓ 到達光速需要無限大的能量</li>
+    <li>✗ 核反應就是粒子被消滅 → ✓ 質子、中子只是少了一點質量，等量的能量離開</li>
+    <li>✗ GPS 的修正全是狹義相對論 → ✓ 單看速度效應，衛星的鐘是變慢</li>
+  </ul>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/misconceptions.md">concepts/misconceptions.md</a></p>
+</section>
+
+<section class="slide" data-wiki="concepts/time-dilation.md concepts/length-contraction.md concepts/mass-energy.md">
+  <h2>小測驗（點題目看答案）</h2>
+  <details><summary>1. 太空船以 0.6c 飛行，船上過 1 小時，地面量到多久？</summary><p>γ = 1.25，所以是 1.25 小時。</p></details>
+  <details><summary>2. 太空人以 0.60c 運動，地面量到他（沿運動方向）身高 1.3 m，他實際多高？</summary><p>L₀ = 1.3 ÷ 0.80 = 1.6 m。</p></details>
+  <details><summary>3. 化學反應後為什麼秤不出質量變少？</summary><p>變化太小：1 kg 炸藥爆炸只少約 6 × 10⁻¹¹ kg。</p></details>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/time-dilation.md">time-dilation.md</a>、<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/length-contraction.md">length-contraction.md</a>、<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/concepts/mass-energy.md">mass-energy.md</a></p>
+</section>
+
+<section class="slide" data-wiki="index.md">
+  <h2>這份簡報怎麼做出來的</h2>
+  <ul>
+    <li>資料：讀書網站相對論講義＋9 篇維基百科，匯入成 LLM Wiki（10 個來源頁、10 個概念頁）。</li>
+    <li>每一頁底下標出用到的 Wiki 頁面；簡報裡的數字都由程式比對過，確定 Wiki 裡找得到。</li>
+    <li>維基百科內容依 CC BY-SA 4.0 標示出處。</li>
+  </ul>
+  <p><a href="../">回首頁</a>｜<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/index.md">Wiki 目錄</a></p>
+  <p class="src">Wiki：<a target="_blank" rel="noopener" href="https://github.com/rich88970/special-relativity-wiki/blob/main/wiki/index.md">index.md</a></p>
+</section>
+
+</main>
+<div class="nav"><button id="prev" aria-label="上一頁">‹</button><span id="pg"></span><button id="next" aria-label="下一頁">›</button></div>
+<script>
+(function(){
+  var s=[].slice.call(document.querySelectorAll('.slide')),i=0;
+  function show(n){i=Math.max(0,Math.min(s.length-1,n));s.forEach(function(e,k){e.classList.toggle('on',k===i)});
+    document.getElementById('pg').textContent=(i+1)+' / '+s.length;history.replaceState(null,'','#'+(i+1));}
+  document.getElementById('prev').onclick=function(){show(i-1)};
+  document.getElementById('next').onclick=function(){show(i+1)};
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();show(i+1)}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>=0){e.preventDefault();show(i-1)}
+    if(e.key==='Home')show(0); if(e.key==='End')show(s.length-1);});
+  var x0=null;document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>50)show(i+(d<0?1:-1));x0=null});
+  show((parseInt(location.hash.slice(1),10)||1)-1);
+})();
+</script>
+</body>
+</html>
