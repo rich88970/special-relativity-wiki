@@ -1,0 +1,4 @@
+title: 狹義相對論 LLM Wiki
+description: 給 AI 維護的狹義相對論入門知識庫，以及用它產生的教學簡報
+theme: jekyll-theme-primer
+exclude: [tools]
